@@ -1,0 +1,68 @@
+
+<div *ngIf="alumniPhoto">
+    <h2><span>Alumni Photo</span> {{alumniPhoto.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{alumniPhoto.title}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{alumniPhoto.description}}</span>
+        </dd>
+        <dt><span>Address</span></dt>
+        <dd>
+            <span>{{alumniPhoto.address}}</span>
+        </dd>
+        <dt><span>Latitude</span></dt>
+        <dd>
+            <span>{{alumniPhoto.latitude}}</span>
+        </dd>
+        <dt><span>Longitude</span></dt>
+        <dd>
+            <span>{{alumniPhoto.longitude}}</span>
+        </dd>
+        <dt><span>Media Type</span></dt>
+        <dd>
+            <span>{{alumniPhoto.mediaType}}</span>
+        </dd>
+        <dt><span>Media File</span></dt>
+        <dd>
+            <div *ngIf="alumniPhoto.mediaFile">
+                <a (click)="openFile(alumniPhoto.mediaFileContentType, alumniPhoto.mediaFile)">open</a>
+                {{alumniPhoto.mediaFileContentType}}, {{byteSize(alumniPhoto.mediaFile)}}
+            </div>
+        </dd>
+        <dt><span>Url Orfile Link</span></dt>
+        <dd>
+            <span>{{alumniPhoto.urlOrfileLink}}</span>
+        </dd>
+        <dt><span>User Agent</span></dt>
+        <dd>
+            <span>{{alumniPhoto.userAgent}}</span>
+        </dd>
+        <dt><span>Upload Time</span></dt>
+        <dd>
+            <span>{{alumniPhoto.uploadTime | date:'medium'}}</span>
+        </dd>
+        <dt><span>Alumniuser</span></dt>
+        <dd>
+            {{alumniPhoto.alumniuserLogin}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'alumni-photo/'+ alumniPhoto.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

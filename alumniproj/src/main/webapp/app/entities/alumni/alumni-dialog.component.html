@@ -1,0 +1,406 @@
+
+
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+        <h4 class="modal-title" id="myAlumniLabel">Create or edit a Alumni</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!alumni.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="alumni.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_cornellAlumniIDNumber">Cornell Alumni ID Number</label>
+            <input type="text" class="form-control" name="cornellAlumniIDNumber" id="field_cornellAlumniIDNumber"
+                [(ngModel)]="alumni.cornellAlumniIDNumber"
+            required />
+            <div [hidden]="!(editForm.controls.cornellAlumniIDNumber?.dirty && editForm.controls.cornellAlumniIDNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.cornellAlumniIDNumber?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" id="field_firstName"
+                [(ngModel)]="alumni.firstName"
+            required />
+            <div [hidden]="!(editForm.controls.firstName?.dirty && editForm.controls.firstName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.firstName?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_middleName">Middle Name</label>
+            <input type="text" class="form-control" name="middleName" id="field_middleName"
+                [(ngModel)]="alumni.middleName"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" id="field_lastName"
+                [(ngModel)]="alumni.lastName"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_collegeOrSchool">College Or School</label>
+            <input type="text" class="form-control" name="collegeOrSchool" id="field_collegeOrSchool"
+                [(ngModel)]="alumni.collegeOrSchool"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_major">Major</label>
+            <input type="text" class="form-control" name="major" id="field_major"
+                [(ngModel)]="alumni.major"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_place">Place</label>
+            <input type="text" class="form-control" name="place" id="field_place"
+                [(ngModel)]="alumni.place"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_country">Country</label>
+            <input type="text" class="form-control" name="country" id="field_country"
+                [(ngModel)]="alumni.country"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_livingCity">Living City</label>
+            <input type="text" class="form-control" name="livingCity" id="field_livingCity"
+                [(ngModel)]="alumni.livingCity"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_whereLiveNow">Where Live Now</label>
+            <input type="text" class="form-control" name="whereLiveNow" id="field_whereLiveNow"
+                [(ngModel)]="alumni.whereLiveNow"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_currentProfileLink">Current Profile Link</label>
+            <input type="text" class="form-control" name="currentProfileLink" id="field_currentProfileLink"
+                [(ngModel)]="alumni.currentProfileLink"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.life_Bullet_1" for="field_life_Bullet_1">Life Bullet 1</label>
+            <input type="text" class="form-control" name="life_Bullet_1" id="field_life_Bullet_1"
+                [(ngModel)]="alumni.life_Bullet_1"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.life_Bullet_2" for="field_life_Bullet_2">Life Bullet 2</label>
+            <input type="text" class="form-control" name="life_Bullet_2" id="field_life_Bullet_2"
+                [(ngModel)]="alumni.life_Bullet_2"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.life_Bullet_3" for="field_life_Bullet_3">Life Bullet 3</label>
+            <input type="text" class="form-control" name="life_Bullet_3" id="field_life_Bullet_3"
+                [(ngModel)]="alumni.life_Bullet_3"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.life_Bullet_4" for="field_life_Bullet_4">Life Bullet 4</label>
+            <input type="text" class="form-control" name="life_Bullet_4" id="field_life_Bullet_4"
+                [(ngModel)]="alumni.life_Bullet_4"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.life_Bullet_5" for="field_life_Bullet_5">Life Bullet 5</label>
+            <input type="text" class="form-control" name="life_Bullet_5" id="field_life_Bullet_5"
+                [(ngModel)]="alumni.life_Bullet_5"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.life_Bullet_6" for="field_life_Bullet_6">Life Bullet 6</label>
+            <input type="text" class="form-control" name="life_Bullet_6" id="field_life_Bullet_6"
+                [(ngModel)]="alumni.life_Bullet_6"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.life_Bullet_7" for="field_life_Bullet_7">Life Bullet 7</label>
+            <input type="text" class="form-control" name="life_Bullet_7" id="field_life_Bullet_7"
+                [(ngModel)]="alumni.life_Bullet_7"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.life_Bullet_8" for="field_life_Bullet_8">Life Bullet 8</label>
+            <input type="text" class="form-control" name="life_Bullet_8" id="field_life_Bullet_8"
+                [(ngModel)]="alumni.life_Bullet_8"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.life_Bullet_9" for="field_life_Bullet_9">Life Bullet 9</label>
+            <input type="text" class="form-control" name="life_Bullet_9" id="field_life_Bullet_9"
+                [(ngModel)]="alumni.life_Bullet_9"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.life_Bullet_10" for="field_life_Bullet_10">Life Bullet 10</label>
+            <input type="text" class="form-control" name="life_Bullet_10" id="field_life_Bullet_10"
+                [(ngModel)]="alumni.life_Bullet_10"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_1" for="field_after_Grad_Bullet_1">After Grad Bullet 1</label>
+            <input type="text" class="form-control" name="after_Grad_Bullet_1" id="field_after_Grad_Bullet_1"
+                [(ngModel)]="alumni.after_Grad_Bullet_1"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_2" for="field_after_Grad_Bullet_2">After Grad Bullet 2</label>
+            <input type="text" class="form-control" name="after_Grad_Bullet_2" id="field_after_Grad_Bullet_2"
+                [(ngModel)]="alumni.after_Grad_Bullet_2"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_3" for="field_after_Grad_Bullet_3">After Grad Bullet 3</label>
+            <input type="text" class="form-control" name="after_Grad_Bullet_3" id="field_after_Grad_Bullet_3"
+                [(ngModel)]="alumni.after_Grad_Bullet_3"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_4" for="field_after_Grad_Bullet_4">After Grad Bullet 4</label>
+            <input type="text" class="form-control" name="after_Grad_Bullet_4" id="field_after_Grad_Bullet_4"
+                [(ngModel)]="alumni.after_Grad_Bullet_4"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_5" for="field_after_Grad_Bullet_5">After Grad Bullet 5</label>
+            <input type="text" class="form-control" name="after_Grad_Bullet_5" id="field_after_Grad_Bullet_5"
+                [(ngModel)]="alumni.after_Grad_Bullet_5"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_6" for="field_after_Grad_Bullet_6">After Grad Bullet 6</label>
+            <input type="text" class="form-control" name="after_Grad_Bullet_6" id="field_after_Grad_Bullet_6"
+                [(ngModel)]="alumni.after_Grad_Bullet_6"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_7" for="field_after_Grad_Bullet_7">After Grad Bullet 7</label>
+            <input type="text" class="form-control" name="after_Grad_Bullet_7" id="field_after_Grad_Bullet_7"
+                [(ngModel)]="alumni.after_Grad_Bullet_7"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_8" for="field_after_Grad_Bullet_8">After Grad Bullet 8</label>
+            <input type="text" class="form-control" name="after_Grad_Bullet_8" id="field_after_Grad_Bullet_8"
+                [(ngModel)]="alumni.after_Grad_Bullet_8"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_9" for="field_after_Grad_Bullet_9">After Grad Bullet 9</label>
+            <input type="text" class="form-control" name="after_Grad_Bullet_9" id="field_after_Grad_Bullet_9"
+                [(ngModel)]="alumni.after_Grad_Bullet_9"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_10" for="field_after_Grad_Bullet_10">After Grad Bullet 10</label>
+            <input type="text" class="form-control" name="after_Grad_Bullet_10" id="field_after_Grad_Bullet_10"
+                [(ngModel)]="alumni.after_Grad_Bullet_10"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_primaryEmail">Primary Email</label>
+            <input type="text" class="form-control" name="primaryEmail" id="field_primaryEmail"
+                [(ngModel)]="alumni.primaryEmail"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_alternateEmail">Alternate Email</label>
+            <input type="text" class="form-control" name="alternateEmail" id="field_alternateEmail"
+                [(ngModel)]="alumni.alternateEmail"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_homeAddress">Home Address</label>
+            <input type="text" class="form-control" name="homeAddress" id="field_homeAddress"
+                [(ngModel)]="alumni.homeAddress"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_secondaryAddress">Secondary Address</label>
+            <input type="text" class="form-control" name="secondaryAddress" id="field_secondaryAddress"
+                [(ngModel)]="alumni.secondaryAddress"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_telephoneMobile">Telephone Mobile</label>
+            <input type="text" class="form-control" name="telephoneMobile" id="field_telephoneMobile"
+                [(ngModel)]="alumni.telephoneMobile"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_telephoneLandline">Telephone Landline</label>
+            <input type="text" class="form-control" name="telephoneLandline" id="field_telephoneLandline"
+                [(ngModel)]="alumni.telephoneLandline"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_telephoneOther">Telephone Other</label>
+            <input type="text" class="form-control" name="telephoneOther" id="field_telephoneOther"
+                [(ngModel)]="alumni.telephoneOther"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_personalWebPage1">Personal Web Page 1</label>
+            <input type="text" class="form-control" name="personalWebPage1" id="field_personalWebPage1"
+                [(ngModel)]="alumni.personalWebPage1"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_personalWebPage2">Personal Web Page 2</label>
+            <input type="text" class="form-control" name="personalWebPage2" id="field_personalWebPage2"
+                [(ngModel)]="alumni.personalWebPage2"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_blog1">Blog 1</label>
+            <input type="text" class="form-control" name="blog1" id="field_blog1"
+                [(ngModel)]="alumni.blog1"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_blog2">Blog 2</label>
+            <input type="text" class="form-control" name="blog2" id="field_blog2"
+                [(ngModel)]="alumni.blog2"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_facebookLink">Facebook Link</label>
+            <input type="text" class="form-control" name="facebookLink" id="field_facebookLink"
+                [(ngModel)]="alumni.facebookLink"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_twitter">Twitter</label>
+            <input type="text" class="form-control" name="twitter" id="field_twitter"
+                [(ngModel)]="alumni.twitter"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_instagram">Instagram</label>
+            <input type="text" class="form-control" name="instagram" id="field_instagram"
+                [(ngModel)]="alumni.instagram"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_youTube">You Tube</label>
+            <input type="text" class="form-control" name="youTube" id="field_youTube"
+                [(ngModel)]="alumni.youTube"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_vimeo">Vimeo</label>
+            <input type="text" class="form-control" name="vimeo" id="field_vimeo"
+                [(ngModel)]="alumni.vimeo"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_bandcamp">Bandcamp</label>
+            <input type="text" class="form-control" name="bandcamp" id="field_bandcamp"
+                [(ngModel)]="alumni.bandcamp"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_otherSocialMedia">Other Social Media</label>
+            <input type="text" class="form-control" name="otherSocialMedia" id="field_otherSocialMedia"
+                [(ngModel)]="alumni.otherSocialMedia"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_otherUrl">Other Url</label>
+            <input type="text" class="form-control" name="otherUrl" id="field_otherUrl"
+                [(ngModel)]="alumni.otherUrl"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_otherSocialMedia2">Other Social Media 2</label>
+            <input type="text" class="form-control" name="otherSocialMedia2" id="field_otherSocialMedia2"
+                [(ngModel)]="alumni.otherSocialMedia2"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_otherURL2">Other URL 2</label>
+            <input type="text" class="form-control" name="otherURL2" id="field_otherURL2"
+                [(ngModel)]="alumni.otherURL2"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_job">Job</label>
+            <input type="text" class="form-control" name="job" id="field_job"
+                [(ngModel)]="alumni.job"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_company">Company</label>
+            <input type="text" class="form-control" name="company" id="field_company"
+                [(ngModel)]="alumni.company"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_companyURL">Company URL</label>
+            <input type="text" class="form-control" name="companyURL" id="field_companyURL"
+                [(ngModel)]="alumni.companyURL"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_workAddress">Work Address</label>
+            <input type="text" class="form-control" name="workAddress" id="field_workAddress"
+                [(ngModel)]="alumni.workAddress"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_workEmail">Work Email</label>
+            <input type="text" class="form-control" name="workEmail" id="field_workEmail"
+                [(ngModel)]="alumni.workEmail"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_workTelephone">Work Telephone</label>
+            <input type="text" class="form-control" name="workTelephone" id="field_workTelephone"
+                [(ngModel)]="alumni.workTelephone"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_uploadCVURL">Upload CVURL</label>
+            <input type="text" class="form-control" name="uploadCVURL" id="field_uploadCVURL"
+                [(ngModel)]="alumni.uploadCVURL"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_maidenName">Maiden Name</label>
+            <input type="text" class="form-control" name="maidenName" id="field_maidenName"
+                [(ngModel)]="alumni.maidenName"
+             />
+        </div>
+
+        <div class="form-group">
+            <label for="field_alumniuser">Alumniuser</label>
+            <select class="form-control" id="field_alumniuser" name="alumniuser" [(ngModel)]="alumni.alumniuser" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === alumni.alumniuser?.id ? alumni.alumniuser : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

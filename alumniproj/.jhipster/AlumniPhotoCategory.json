@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "categoryName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "categoryDesription",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170227111737",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "alumni_photo_category",
+    "pagination": "pagination"
+}

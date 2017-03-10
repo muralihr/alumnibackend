@@ -1,0 +1,266 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "alumniuser",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "alumni"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "cornellAlumniIDNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "firstName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "middleName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "collegeOrSchool",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "major",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "place",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "country",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "livingCity",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "whereLiveNow",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "currentProfileLink",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "life_Bullet_1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "life_Bullet_2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "life_Bullet_3",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "life_Bullet_4",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "life_Bullet_5",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "life_Bullet_6",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "life_Bullet_7",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "life_Bullet_8",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "life_Bullet_9",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "life_Bullet_10",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "after_Grad_Bullet_1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "after_Grad_Bullet_2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "after_Grad_Bullet_3",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "after_Grad_Bullet_4",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "after_Grad_Bullet_5",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "after_Grad_Bullet_6",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "after_Grad_Bullet_7",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "after_Grad_Bullet_8",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "after_Grad_Bullet_9",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "after_Grad_Bullet_10",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "primaryEmail",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "alternateEmail",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "homeAddress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "secondaryAddress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telephoneMobile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telephoneLandline",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telephoneOther",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "personalWebPage1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "personalWebPage2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "blog1",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "blog2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "facebookLink",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "twitter",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "instagram",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "youTube",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "vimeo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bandcamp",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "otherSocialMedia",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "otherUrl",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "otherSocialMedia2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "otherURL2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "job",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "company",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "companyURL",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "workAddress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "workEmail",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "workTelephone",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "uploadCVURL",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "maidenName",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170227081821",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "alumni",
+    "pagination": "pagination"
+}

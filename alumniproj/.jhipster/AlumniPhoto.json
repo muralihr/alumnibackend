@@ -1,0 +1,86 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "alumniuser",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "alumniPhoto"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "latitude",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "longitude",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "mediaType",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "mediaFile",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldId": 8,
+            "fieldName": "urlOrfileLink",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 10,
+            "fieldName": "userAgent",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 11,
+            "fieldName": "uploadTime",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20170227094614",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "alumni_photo",
+    "pagination": "pagination"
+}

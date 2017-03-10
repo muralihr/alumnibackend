@@ -1,0 +1,200 @@
+<div>
+    <h2><span>Alumni</span>
+        <button class="btn btn-primary float-xs-right create-alumni" [routerLink]="['/', { outlets: { popup: ['alumni-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" >
+            Create new Alumni
+            </span>
+        </button></h2>
+    <jhi-alert></jhi-alert>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right">
+                        <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                        <span  class="input-group-btn width-min">
+                            <button class="btn btn-info" (click)="search(currentSearch)">
+                                <span class="fa fa-search"></span>
+                            </button>
+                        </span>
+                        <span class="input-group-btn width-min" *ngIf="currentSearch">
+                            <button class="btn btn-info" (click)="clear()">
+                                <span class="fa fa-trash-o"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="alumni">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cornellAlumniIDNumber"><span>Cornell Alumni ID Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="firstName"><span>First Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="middleName"><span>Middle Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastName"><span>Last Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="collegeOrSchool"><span>College Or School</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="major"><span>Major</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="place"><span>Place</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="country"><span>Country</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="livingCity"><span>Living City</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="whereLiveNow"><span>Where Live Now</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="currentProfileLink"><span>Current Profile Link</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="life_Bullet_1"><span jhiTranslate="alumniprojApp.alumni.life_Bullet_1">Life Bullet 1</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="life_Bullet_2"><span jhiTranslate="alumniprojApp.alumni.life_Bullet_2">Life Bullet 2</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="life_Bullet_3"><span jhiTranslate="alumniprojApp.alumni.life_Bullet_3">Life Bullet 3</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="life_Bullet_4"><span jhiTranslate="alumniprojApp.alumni.life_Bullet_4">Life Bullet 4</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="life_Bullet_5"><span jhiTranslate="alumniprojApp.alumni.life_Bullet_5">Life Bullet 5</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="life_Bullet_6"><span jhiTranslate="alumniprojApp.alumni.life_Bullet_6">Life Bullet 6</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="life_Bullet_7"><span jhiTranslate="alumniprojApp.alumni.life_Bullet_7">Life Bullet 7</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="life_Bullet_8"><span jhiTranslate="alumniprojApp.alumni.life_Bullet_8">Life Bullet 8</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="life_Bullet_9"><span jhiTranslate="alumniprojApp.alumni.life_Bullet_9">Life Bullet 9</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="life_Bullet_10"><span jhiTranslate="alumniprojApp.alumni.life_Bullet_10">Life Bullet 10</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="after_Grad_Bullet_1"><span jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_1">After Grad Bullet 1</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="after_Grad_Bullet_2"><span jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_2">After Grad Bullet 2</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="after_Grad_Bullet_3"><span jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_3">After Grad Bullet 3</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="after_Grad_Bullet_4"><span jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_4">After Grad Bullet 4</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="after_Grad_Bullet_5"><span jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_5">After Grad Bullet 5</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="after_Grad_Bullet_6"><span jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_6">After Grad Bullet 6</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="after_Grad_Bullet_7"><span jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_7">After Grad Bullet 7</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="after_Grad_Bullet_8"><span jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_8">After Grad Bullet 8</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="after_Grad_Bullet_9"><span jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_9">After Grad Bullet 9</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="after_Grad_Bullet_10"><span jhiTranslate="alumniprojApp.alumni.after_Grad_Bullet_10">After Grad Bullet 10</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="primaryEmail"><span>Primary Email</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="alternateEmail"><span>Alternate Email</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="homeAddress"><span>Home Address</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="secondaryAddress"><span>Secondary Address</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="telephoneMobile"><span>Telephone Mobile</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="telephoneLandline"><span>Telephone Landline</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="telephoneOther"><span>Telephone Other</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="personalWebPage1"><span>Personal Web Page 1</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="personalWebPage2"><span>Personal Web Page 2</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="blog1"><span>Blog 1</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="blog2"><span>Blog 2</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="facebookLink"><span>Facebook Link</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="twitter"><span>Twitter</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="instagram"><span>Instagram</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="youTube"><span>You Tube</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="vimeo"><span>Vimeo</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bandcamp"><span>Bandcamp</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="otherSocialMedia"><span>Other Social Media</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="otherUrl"><span>Other Url</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="otherSocialMedia2"><span>Other Social Media 2</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="otherURL2"><span>Other URL 2</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="job"><span>Job</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="company"><span>Company</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="companyURL"><span>Company URL</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="workAddress"><span>Work Address</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="workEmail"><span>Work Email</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="workTelephone"><span>Work Telephone</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="uploadCVURL"><span>Upload CVURL</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maidenName"><span>Maiden Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="alumniuser.login"><span>Alumniuser</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let alumni of alumni ;trackBy: trackId">
+                <td><a [routerLink]="['../alumni', alumni.id ]">{{alumni.id}}</a></td>
+                <td>{{alumni.cornellAlumniIDNumber}}</td>
+                <td>{{alumni.firstName}}</td>
+                <td>{{alumni.middleName}}</td>
+                <td>{{alumni.lastName}}</td>
+                <td>{{alumni.collegeOrSchool}}</td>
+                <td>{{alumni.major}}</td>
+                <td>{{alumni.place}}</td>
+                <td>{{alumni.country}}</td>
+                <td>{{alumni.livingCity}}</td>
+                <td>{{alumni.whereLiveNow}}</td>
+                <td>{{alumni.currentProfileLink}}</td>
+                <td>{{alumni.life_Bullet_1}}</td>
+                <td>{{alumni.life_Bullet_2}}</td>
+                <td>{{alumni.life_Bullet_3}}</td>
+                <td>{{alumni.life_Bullet_4}}</td>
+                <td>{{alumni.life_Bullet_5}}</td>
+                <td>{{alumni.life_Bullet_6}}</td>
+                <td>{{alumni.life_Bullet_7}}</td>
+                <td>{{alumni.life_Bullet_8}}</td>
+                <td>{{alumni.life_Bullet_9}}</td>
+                <td>{{alumni.life_Bullet_10}}</td>
+                <td>{{alumni.after_Grad_Bullet_1}}</td>
+                <td>{{alumni.after_Grad_Bullet_2}}</td>
+                <td>{{alumni.after_Grad_Bullet_3}}</td>
+                <td>{{alumni.after_Grad_Bullet_4}}</td>
+                <td>{{alumni.after_Grad_Bullet_5}}</td>
+                <td>{{alumni.after_Grad_Bullet_6}}</td>
+                <td>{{alumni.after_Grad_Bullet_7}}</td>
+                <td>{{alumni.after_Grad_Bullet_8}}</td>
+                <td>{{alumni.after_Grad_Bullet_9}}</td>
+                <td>{{alumni.after_Grad_Bullet_10}}</td>
+                <td>{{alumni.primaryEmail}}</td>
+                <td>{{alumni.alternateEmail}}</td>
+                <td>{{alumni.homeAddress}}</td>
+                <td>{{alumni.secondaryAddress}}</td>
+                <td>{{alumni.telephoneMobile}}</td>
+                <td>{{alumni.telephoneLandline}}</td>
+                <td>{{alumni.telephoneOther}}</td>
+                <td>{{alumni.personalWebPage1}}</td>
+                <td>{{alumni.personalWebPage2}}</td>
+                <td>{{alumni.blog1}}</td>
+                <td>{{alumni.blog2}}</td>
+                <td>{{alumni.facebookLink}}</td>
+                <td>{{alumni.twitter}}</td>
+                <td>{{alumni.instagram}}</td>
+                <td>{{alumni.youTube}}</td>
+                <td>{{alumni.vimeo}}</td>
+                <td>{{alumni.bandcamp}}</td>
+                <td>{{alumni.otherSocialMedia}}</td>
+                <td>{{alumni.otherUrl}}</td>
+                <td>{{alumni.otherSocialMedia2}}</td>
+                <td>{{alumni.otherURL2}}</td>
+                <td>{{alumni.job}}</td>
+                <td>{{alumni.company}}</td>
+                <td>{{alumni.companyURL}}</td>
+                <td>{{alumni.workAddress}}</td>
+                <td>{{alumni.workEmail}}</td>
+                <td>{{alumni.workTelephone}}</td>
+                <td>{{alumni.uploadCVURL}}</td>
+                <td>{{alumni.maidenName}}</td>
+                <td>
+                    {{alumni.alumniuser?.login}}
+                </td>
+                <td class="text-xs-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../alumni', alumni.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'alumni/'+ alumni.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'alumni/'+ alumni.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div class="text-xs-center" *ngIf="alumni && alumni.length">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+</div>

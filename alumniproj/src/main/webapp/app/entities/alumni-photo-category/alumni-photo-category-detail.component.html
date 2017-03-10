@@ -1,0 +1,29 @@
+
+<div *ngIf="alumniPhotoCategory">
+    <h2><span>Alumni Photo Category</span> {{alumniPhotoCategory.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row">
+        <dt><span>Category Name</span></dt>
+        <dd>
+            <span>{{alumniPhotoCategory.categoryName}}</span>
+        </dd>
+        <dt><span>Category Desription</span></dt>
+        <dd>
+            <span>{{alumniPhotoCategory.categoryDesription}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'alumni-photo-category/'+ alumniPhotoCategory.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>
