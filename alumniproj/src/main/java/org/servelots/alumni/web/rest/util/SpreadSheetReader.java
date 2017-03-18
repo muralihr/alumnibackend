@@ -50,12 +50,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+ import  org.servelots.alumni.web.rest.util.OSValidator;
+ import  org.servelots.alumni.web.rest.AppConstants;
 
 public class SpreadSheetReader {
 	/** Application name. */
 	private static final String APPLICATION_NAME = "Google Sheets API Java SpreadSheetReader";
 	  private static final Logger log = LoggerFactory.getLogger(SpreadSheetReader.class);
-	  
+
 	/** Directory to store user credentials for this application. */
 	private static final java.io.File DATA_STORE_DIR = new java.io.File(System.getProperty("user.home"),
 			".credentials/sheets.googleapis.com-java-quickstart");
@@ -71,6 +75,9 @@ public class SpreadSheetReader {
 	/** Global instance of the HTTP transport. */
 	private static HttpTransport HTTP_TRANSPORT;
 
+	@Autowired
+	static private Environment environment;
+	String errMessageException;
 	/**
 	 * Global instance of the scopes required by this x.
 	 *
@@ -127,6 +134,25 @@ public static GoogleCredential createCredentialForServiceAccountImpersonateUser(
 		 
  String serviceAccountName = "murali-726@testmaps-149908.iam.gserviceaccount.com";
 try {
+	
+	 log.debug("SEC_FILE_PATH" + environment.getProperty(AppConstants.SEC_FILE_PATH));
+		String secfileHome = environment.getProperty(AppConstants.SEC_FILE_PATH);
+		if (secfileHome == null) {
+			log.debug("SEC_FILE_PATH NULL "   );
+			if (OSValidator.isUnix()) {
+				secfileHome = AppConstants.SEC_FILE_LINUX;
+				log.debug("SEC_FILE_PATH NULL UNIX"   );
+				log.debug("UNIX ENV");
+			}
+			if (OSValidator.isWindows()) {
+				secfileHome = AppConstants.SEC_FILE_WIN;
+			log.debug("SEC_FILE_PATH NULL WIN"   );	
+				log.debug("WINDOWS ENV");
+			}
+		}
+
+log.debug("SEC_FILE home  "  +secfileHome );
+//File p12File = new File(secfileHome);
 File p12File = new File("E:/angular2/gsheetv/testmaps-d735f060b87d.p12");
 GoogleCredential credential =  createCredentialForServiceAccountImpersonateUser(HTTP_TRANSPORT, JSON_FACTORY,serviceAccountName, SCOPES, p12File, null);
 
@@ -381,58 +407,3 @@ GoogleCredential credential =  createCredentialForServiceAccountImpersonateUser(
 	}
 
 }
-/*
-import java.io.File;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
-
-public class Connector {
-
-  private static ContactsService contactService = null;
-  private static HttpTransport httpTransport;
-
-  private static final String APPLICATION_NAME = "Your-App/1.0";
-  private static final String SERVICE_ACCOUNT_EMAIL = "xy@developer.gserviceaccount.com";
-
-  private Connector() {
-    // explicit private no-args constructor
-  }
-
-  public static ContactsService getInstance() {
-    if (contactService == null) {
-      try {
-        contactService = connect();
-
-      } catch (GeneralSecurityException | IOException e) {
-        e.printStackTrace();
-      }
-    }
-
-    return contactService;
-  }
-
-  private static ContactsService connect() throws GeneralSecurityException, IOException {
-    httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-
-    // @formatter:off
-    GoogleCredential credential = new GoogleCredential.Builder()
-                                            .setTransport(httpTransport)
-                                            .setJsonFactory(JacksonFactory.getDefaultInstance())
-                                            .setServiceAccountId(SERVICE_ACCOUNT_EMAIL)
-                                            .setServiceAccountScopes(Collections.singleton("https://www.google.com/m8/feeds"))
-                                            .setServiceAccountPrivateKeyFromP12File(new File("key.p12"))
-                                            .build();
-    // @formatter:on
-
-    if (!credential.refreshToken()) {
-      throw new RuntimeException("Failed OAuth to refresh the token");
-    }
-
-    ContactsService myService = new ContactsService(APPLICATION_NAME);
-    myService.setOAuth2Credentials(credential);
-    return myService;
-  }
-
-}
-*/
