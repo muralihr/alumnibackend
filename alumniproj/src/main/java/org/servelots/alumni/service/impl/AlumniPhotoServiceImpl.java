@@ -23,8 +23,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 /**
  * Service Implementation for managing AlumniPhoto.
  */
-@Service
-@Transactional
+@Service@Transactional
 public class AlumniPhotoServiceImpl implements AlumniPhotoService{
 
     private final Logger log = LoggerFactory.getLogger(AlumniPhotoServiceImpl.class);
@@ -110,5 +109,20 @@ public class AlumniPhotoServiceImpl implements AlumniPhotoService{
         log.debug("Request to search for a page of AlumniPhotos for query {}", query);
         Page<AlumniPhoto> result = alumniPhotoSearchRepository.search(queryStringQuery(query), pageable);
         return result.map(alumniPhoto -> alumniPhotoMapper.alumniPhotoToAlumniPhotoDTO(alumniPhoto));
+    }
+	
+	//	List<AlumniPhotoDTO> findByTitle(String title);
+	
+	
+	
+    @Override
+    @Transactional(readOnly = true)
+    public List<AlumniPhoto> findByTitle(String title) {
+        
+		
+		List<AlumniPhoto> listByTitle = alumniPhotoRepository.findByTitle(title);
+		
+		
+        return listByTitle;
     }
 }

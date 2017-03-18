@@ -1,5 +1,14 @@
 package org.servelots.alumni.web.rest;
 
+
+import java.time.ZonedDateTime;
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Objects;
+import javax.persistence.Lob;
+
 import com.codahale.metrics.annotation.Timed;
 import org.servelots.alumni.service.AlumniPhotoService;
 import org.servelots.alumni.web.rest.util.HeaderUtil;
@@ -28,8 +37,32 @@ import java.util.stream.StreamSupport;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
- 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.apache.commons.io.FileUtils;
+
+import javax.inject.Inject;
+import java.io.IOException;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,19 +70,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
+import org.servelots.alumni.domain.AlumniPhoto;
+import org.servelots.alumni.domain.Alumni;
+import org.servelots.alumni.service.*;
 /**
  * REST controller for managing AlumniPhoto.
  */
 @RestController
 @RequestMapping("/api")
-@CrossOrigin  
+@CrossOrigin
 public class AlumniPhotoResource {
 
     private final Logger log = LoggerFactory.getLogger(AlumniPhotoResource.class);
 
     private static final String ENTITY_NAME = "alumniPhoto";
-        
+
     private final AlumniPhotoService alumniPhotoService;
+    @Inject 
+    private   AlumniService alumniService;
 
     public AlumniPhotoResource(AlumniPhotoService alumniPhotoService) {
         this.alumniPhotoService = alumniPhotoService;
@@ -64,7 +102,7 @@ public class AlumniPhotoResource {
      */
     @PostMapping("/alumni-photos")
     @Timed
-    public ResponseEntity<AlumniPhotoDTO> createAlumniPhoto(@Valid @RequestBody AlumniPhotoDTO alumniPhotoDTO) throws URISyntaxException {
+    public ResponseEntity < AlumniPhotoDTO > createAlumniPhoto(@Valid @RequestBody AlumniPhotoDTO alumniPhotoDTO) throws URISyntaxException {
         log.debug("REST request to save AlumniPhoto : {}", alumniPhotoDTO);
         if (alumniPhotoDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new alumniPhoto cannot already have an ID")).body(null);
@@ -86,7 +124,7 @@ public class AlumniPhotoResource {
      */
     @PutMapping("/alumni-photos")
     @Timed
-    public ResponseEntity<AlumniPhotoDTO> updateAlumniPhoto(@Valid @RequestBody AlumniPhotoDTO alumniPhotoDTO) throws URISyntaxException {
+    public ResponseEntity < AlumniPhotoDTO > updateAlumniPhoto(@Valid @RequestBody AlumniPhotoDTO alumniPhotoDTO) throws URISyntaxException {
         log.debug("REST request to update AlumniPhoto : {}", alumniPhotoDTO);
         if (alumniPhotoDTO.getId() == null) {
             return createAlumniPhoto(alumniPhotoDTO);
@@ -106,12 +144,12 @@ public class AlumniPhotoResource {
      */
     @GetMapping("/alumni-photos")
     @Timed
-    public ResponseEntity<List<AlumniPhotoDTO>> getAllAlumniPhotos(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity < List < AlumniPhotoDTO >> getAllAlumniPhotos(@ApiParam Pageable pageable)
+    throws URISyntaxException {
         log.debug("REST request to get a page of AlumniPhotos");
-        Page<AlumniPhotoDTO> page = alumniPhotoService.findAll(pageable);
+        Page < AlumniPhotoDTO > page = alumniPhotoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/alumni-photos");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity < > (page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
@@ -122,7 +160,7 @@ public class AlumniPhotoResource {
      */
     @GetMapping("/alumni-photos/{id}")
     @Timed
-    public ResponseEntity<AlumniPhotoDTO> getAlumniPhoto(@PathVariable Long id) {
+    public ResponseEntity < AlumniPhotoDTO > getAlumniPhoto(@PathVariable Long id) {
         log.debug("REST request to get AlumniPhoto : {}", id);
         AlumniPhotoDTO alumniPhotoDTO = alumniPhotoService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(alumniPhotoDTO));
@@ -136,7 +174,7 @@ public class AlumniPhotoResource {
      */
     @DeleteMapping("/alumni-photos/{id}")
     @Timed
-    public ResponseEntity<Void> deleteAlumniPhoto(@PathVariable Long id) {
+    public ResponseEntity < Void > deleteAlumniPhoto(@PathVariable Long id) {
         log.debug("REST request to delete AlumniPhoto : {}", id);
         alumniPhotoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
@@ -153,30 +191,80 @@ public class AlumniPhotoResource {
      */
     @GetMapping("/_search/alumni-photos")
     @Timed
-    public ResponseEntity<List<AlumniPhotoDTO>> searchAlumniPhotos(@RequestParam String query, @ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity < List < AlumniPhotoDTO >> searchAlumniPhotos(@RequestParam String query, @ApiParam Pageable pageable)
+    throws URISyntaxException {
         log.debug("REST request to search for a page of AlumniPhotos for query {}", query);
-        Page<AlumniPhotoDTO> page = alumniPhotoService.search(query, pageable);
+        Page < AlumniPhotoDTO > page = alumniPhotoService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/alumni-photos");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity < > (page.getContent(), headers, HttpStatus.OK);
     }
-	
-	
-	    @ResponseStatus(HttpStatus.OK)
+
+    @GetMapping("/alumni-photos_alumni_id/{id}")
+    @Timed
+    public ResponseEntity < List < AlumniPhoto >> searchAlumniPhotosByTitle(@PathVariable Long id)
+    throws URISyntaxException {
+        log.debug("REST request to search for a page of AlumniPhotos for query {}", id);
+        Alumni alumni = alumniService.findOne(id);        
+        List < AlumniPhoto >  listOfPhotos; 
+        String alumniNum = alumni.getCornellAlumniIDNumber();
+        listOfPhotos  = alumniPhotoService.findByTitle(alumniNum);
+        ResponseEntity < List < AlumniPhoto>> result = new ResponseEntity  <>(listOfPhotos , null,HttpStatus.OK );        
+        return result;
+    }
+
+
+
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/upload/alumni-photos")
-    public void upload(@RequestParam("file") MultipartFile file, @RequestParam("username") String username ) throws IOException {
+    public void upload(@RequestParam("file") MultipartFile file, @RequestParam("username") String username, @RequestParam("location") String location) throws IOException {
 
         byte[] bytes;
+        String title = username;
+        String description = location;
+        String address = "";
+        String mediaFileContentType = "";
+        String urlOrfileLink = "http://pan.alumni.com//alumniimages//";
+        String userAgent;
+        ZonedDateTime uploadTime;
+        Long alumniuserId;
+        String alumniuserLogin;
+
+
 
         if (!file.isEmpty()) {
-             bytes = file.getBytes();
+            bytes = file.getBytes();
             //store file in storage
         }
-       log.debug("REST request to upload AlumniPhotos for query {}" + username);
- 
-        log.debug(String.format("receive %s from %s", file.getOriginalFilename(), username));
+        String storageDirectory = "c:\\alumniphotos";
+        String downLoadFileName = storageDirectory + "//" + file.getOriginalFilename();
+        String contentType = file.getContentType();
+        if (!file.isEmpty()) {
+            try {
+                bytes = file.getBytes();
+                // Creating the directory to store file
+                // Create the file on server
+                File serverFile = new File(downLoadFileName);
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+                AlumniPhotoDTO alumniPhotoDTO = new AlumniPhotoDTO();
+                alumniPhotoDTO.setTitle(username);
+                alumniPhotoDTO.setDescription(description);
+                alumniPhotoDTO.setLatitude(88.88);
+                alumniPhotoDTO.setLongitude(88.88);
+                alumniPhotoDTO.setMediaType(1);
+                alumniPhotoDTO.setAlumniuserLogin(title);
+                alumniPhotoDTO.setUrlOrfileLink(urlOrfileLink + file.getOriginalFilename());
+                AlumniPhotoDTO result = alumniPhotoService.save(alumniPhotoDTO);
+
+                log.debug("Server File Location=" + serverFile.getAbsolutePath());
+
+
+                log.debug("REST request to upload AlumniPhotos for query {}" + username);
+
+                log.debug(String.format("receive %s from %s", file.getOriginalFilename(), username));
+            } catch (Exception e) {}
+        }
+
     }
-
-
-
 }

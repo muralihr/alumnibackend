@@ -4,6 +4,7 @@ import org.servelots.alumni.service.dto.AlumniPhotoDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
+import org.servelots.alumni.domain.AlumniPhoto;
 
 /**
  * Service Interface for managing AlumniPhoto.
@@ -50,4 +51,6 @@ public interface AlumniPhotoService {
      *  @return the list of entities
      */
     Page<AlumniPhotoDTO> search(String query, Pageable pageable);
+	
+	List<AlumniPhoto> findByTitle(String title);
 }

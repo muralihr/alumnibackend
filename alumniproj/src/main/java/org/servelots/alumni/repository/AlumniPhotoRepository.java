@@ -14,5 +14,9 @@ public interface AlumniPhotoRepository extends JpaRepository<AlumniPhoto,Long> {
 
     @Query("select alumniPhoto from AlumniPhoto alumniPhoto where alumniPhoto.alumniuser.login = ?#{principal.username}")
     List<AlumniPhoto> findByAlumniuserIsCurrentUser();
+	
+	
+    
+    List<AlumniPhoto> findByTitle(String title);
 
 }
